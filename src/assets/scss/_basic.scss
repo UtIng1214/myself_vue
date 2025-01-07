@@ -1,16 +1,27 @@
 * {
   box-sizing: border-box;
 }
+#app {
+  font-family: "Noto Sans TC", sans-serif;
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+  padding: 0 30px;
+  @media (max-width: 425px) {
+    padding: 0 20px;
+  }
+}
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Noto Sans TC", sans-serif;
-  background: #f2f2f2;
 }
 ul {
   margin: 0;
   padding: 0;
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
 }
 li {
   list-style-type: none;
@@ -26,4 +37,47 @@ p {
   max-width: 1140px;
   width: 100%;
   margin: 48px auto 0;
+}
+img {
+  width: 100%;
+}
+nav {
+  padding: 60px 0;
+  position: relative;
+  @media (max-width: 425px) {
+    padding: 70px 0 40px 0;
+  }
+
+  .link {
+    text-align: center;
+    font-size: 40px;
+    @media (max-width: 425px) {
+      font-size: 30px;
+    }
+  }
+
+  .weather {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    font-size: 16px;
+    @media (max-width: 768px) {
+      left: 0;
+      top: 10px;
+    }
+    @media (max-width: 425px) {
+      font-size: 14px;
+    }
+
+    &-info {
+      @media (max-width: 768px) {
+        display: flex;
+        p {
+          &:nth-child(1) {
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+  }
 }

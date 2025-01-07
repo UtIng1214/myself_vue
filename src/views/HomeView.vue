@@ -1,161 +1,124 @@
 <template>
-	<section class="board-wrapper">
-		<div class="board-header">
-			<div class="header-title">鐵人檔案</div>
-			<div class="header-deco"></div>
-		</div>
-		<ul class="board-body">
-			<li v-for="(year, index) in json" :key="index">
-				<article class="article-wrapper">
-					<div class="article-year">{{ year.irontitle }}</div>
-					<div
-						class="article-body"
-						v-for="(articles, articleIndex) in year.articles"
-						:key="articleIndex"
-					>
-						<a class="article-type">{{ articles.type }}</a>
-						<a class="article-title" :href="articles.href">
-							{{ articles.title }} 系列
-						</a>
-						<p class="article-info">
-							{{ articles.info.success ? "鐵人練成" : "鐵人未練成" }} ｜ 共
-							{{ articles.info.count }} 篇文章 ｜
-							{{ articles.info.subscribe }} 人訂閱
-						</p>
+	<div class="content">
+		<div class="main">
+			<div class="pic">
+				<div class="bg"></div>
+				<div class="my_pic">
+					<img src="../assets/images/my_pic.png" alt="myslef" />
+				</div>
+			</div>
+			<div class="introduce">
+				<div class="name">
+					<h1>譚郁亭</h1>
+					<div class="position">應徵職位<br />-前端工程師</div>
+				</div>
+				<div class="aboutMe">
+					<div class="title">ABOUT ME</div>
+					<div class="text">
+						擁有2年網站與應用程式開發經驗。
+						<br />
+						在北祥服務科技期間，我負責開發永豐銀行內部資訊網站及行銷頁面，並參與新行動銀行
+						App 的改版與測試工作。
+						<br />
+						在立達徵信社，我專注於舊網站優化、美化及 RWD、SEO
+						改善，並成功製作多個委託網站。我注重細節與品質，能有效解決問題，為團隊創造價值。
 					</div>
-				</article>
-			</li>
-		</ul>
-		<div class="board-footer"></div>
-	</section>
+				</div>
+			</div>
+		</div>
+
+		<!-- 學歷 -->
+		<div class="educational">
+			<div class="section-title">
+				<h2>學歷</h2>
+			</div>
+			<div class="timelines">
+				<div
+					v-for="(item, index) in educationList"
+					:key="index"
+					class="timeline"
+				>
+					<div class="timeline-info">
+						<div class="timeline-date">{{ item.date }}</div>
+						<div class="timeline-school">{{ item.school }}</div>
+					</div>
+					<ul class="timeline-details">
+						<li>{{ item.details }}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- 工作經歷 -->
+		<div class="job">
+			<div class="section-title">
+				<h2>工作經歷</h2>
+			</div>
+			<div class="timelines">
+				<div v-for="(item, index) in jobList" :key="index" class="timeline">
+					<div class="timeline-info">
+						<div class="timeline-date">{{ item.date }}</div>
+						<div class="timeline-job">{{ item.job }}</div>
+					</div>
+					<ul class="timeline-details">
+						<li
+							v-for="(detail, detailIndex) in item.details"
+							:key="detailIndex"
+						>
+							{{ detail }}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- 作品集 -->
+		<!-- <div class="portfolio">
+			<div class="section-title">
+				<h2>作品集</h2>
+			</div>
+			<div class="know_text">
+				<ul class="know_items">
+					<li v-for="(item, index) in works" :key="index" class="know_item">
+						<a :href="item.href" target="_blank" rel="noopener">
+							{{ item.name }}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div> -->
+
+		<!-- 專業技能 -->
+		<div class="major">
+			<div class="section-title">
+				<h2>專業技能</h2>
+			</div>
+			<div class="know_text">
+				<ul class="know_items">
+					<li v-for="(skill, index) in skills" :key="index" class="know_item">
+						{{ skill }}
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 聯絡方式 -->
+		<div class="info">
+			<div class="section-title">
+				<h2>聯絡方式</h2>
+			</div>
+			<div class="know_text">
+				<ul class="contact_items">
+					<li class="contact_item">📍 {{ contact.address }}</li>
+					<li class="contact_item">📧 {{ contact.email }}</li>
+					<li class="contact_item">📞 {{ contact.phone }}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </template>
 
-<script>
-export default {
-	name: "HomeView",
-	data() {
-		return {
-			json: [
-				{
-					irontitle: "第 11 屆 iT 邦幫忙鐵人賽",
-					articles: [
-						{
-							type: "Modern Web",
-							title:
-								"「小孩才做選擇，我全都要。」小白也能輕鬆瞭解的 Vue.js 與 D3.js 。",
-							href: "https://ithelp.ithome.com.tw/users/20119062/ironman/2242",
-							info: {
-								success: true,
-								count: 32,
-								subscribe: 39,
-							},
-						},
-					],
-				},
-				{
-					irontitle: "2019 邦幫忙鐵人賽",
-					articles: [
-						{
-							type: "自我挑戰",
-							title: "挑戰連續三十天喝不同家手搖飲。",
-							href: "",
-							info: {
-								success: false,
-								count: 29,
-								subscribe: 512,
-							},
-						},
-						{
-							type: "自我挑戰",
-							title: "連續三十天發廢文。",
-							href: "",
-							info: {
-								success: true,
-								count: 999,
-								subscribe: 87,
-							},
-						},
-					],
-				},
-			],
-		};
-	},
-};
-</script>
-
 <style scoped lang="scss">
-@import "@/assets/scss/style.scss";
-.board-wrapper {
-	margin: 20px auto;
-	max-width: 1140px;
-	border: 1px solid #e5e5e5;
-	background: #fff;
-	.board-header {
-		padding: 14px 30px;
-		z-index: 1;
-		.header-title {
-			font-size: 24px;
-			padding-left: 24px;
-		}
-		.header-deco {
-			background: #ffe8cc;
-			width: 100%;
-			height: 30px;
-			margin-top: -19px;
-		}
-	}
-	.board-body {
-		padding: 0 30px 14px;
-		.article-wrapper {
-			.article-year {
-				position: relative;
-				padding: 8px 24px;
-				border-bottom: 1px solid #dddddd;
-				color: #495057;
-				font-size: 18px;
-				&::before {
-					position: absolute;
-					top: 18px;
-					left: 10px;
-					content: "";
-					width: 8px;
-					height: 8px;
-					background: #495057;
-					border-radius: 50px;
-				}
-			}
-			.article-body {
-				padding: 12px 4px;
-				border-bottom: 1px solid #dddddd;
-				.article-type {
-					margin-bottom: 6px;
-					padding: 2px 8px;
-					border-radius: 20px;
-					background: #4a89dc;
-					font-weight: lighter;
-					font-size: 14px;
-					color: #fff;
-					cursor: pointer;
-				}
-				.article-title {
-					display: block;
-					margin: 6px 0;
-					color: #303233;
-					font-size: 18px;
-					font-weight: bold;
-					transition: 0.3s;
-					cursor: pointer;
-					&:hover {
-						color: #007db6;
-					}
-				}
-				.article-info {
-					color: #e8590c;
-					font-size: 14px;
-					font-weight: lighter;
-				}
-			}
-		}
-	}
-}
+@import "@/assets/scss/_HomeView.scss";
 </style>
+<script src="./js/HomeView.js"></script>
