@@ -72,22 +72,6 @@
 			</div>
 		</div>
 
-		<!-- 作品集 -->
-		<!-- <div class="portfolio">
-			<div class="section-title">
-				<h2>作品集</h2>
-			</div>
-			<div class="know_text">
-				<ul class="know_items">
-					<li v-for="(item, index) in works" :key="index" class="know_item">
-						<a :href="item.href" target="_blank" rel="noopener">
-							{{ item.name }}
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div> -->
-
 		<!-- 專業技能 -->
 		<div class="major">
 			<div class="section-title">
