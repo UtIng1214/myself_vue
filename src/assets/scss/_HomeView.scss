@@ -1,7 +1,7 @@
-// .content {
-//   max-width: 1200px;
-//   margin: auto;
-// }
+.content {
+  max-width: 1200px;
+  margin: auto;
+}
 .main {
   display: flex;
   @media (max-width: 1200px) {
@@ -74,7 +74,7 @@
       }
 
       h1 {
-        font-size: 65px;
+        font-size: 50px;
         color: #8b8075;
         @media (max-width: 768px) {
           margin: 0;
@@ -89,7 +89,7 @@
 
       .position {
         text-align: end;
-        font-size: 35px;
+        font-size: 30px;
         color: #c7b9ac;
         @media (max-width: 768px) {
           text-align: center;
@@ -102,7 +102,7 @@
     .aboutMe {
       line-height: 2;
       letter-spacing: 3px;
-      font-size: 24px;
+      font-size: 20px;
       color: #232424;
       @media (max-width: 768px) {
         line-height: 1.8;
@@ -288,7 +288,7 @@
     }
 
     &-info {
-      width: 130px;
+      width: 200px;
       @media (max-width: 425px) {
         width: 100%;
       }
