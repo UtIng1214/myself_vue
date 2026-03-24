@@ -169,7 +169,7 @@ app.post("/api/job", (req, res) => {
   try {
     const { startData, endData, company, job, details } = req.body
 
-    if (!startData || !endData || !company || !job ||!details) {
+    if (!startData || !endData || !company || !job || !details) {
       return res.status(400).json({
         error: "company, title, period 為必填"
       })
@@ -311,22 +311,31 @@ app.get("/api/skills", (req, res) => {
 
 app.post("/api/skills", (req, res) => {
   try {
-    const { skill } = req.body
+    const skills = req.body;
+
+    if (!Array.isArray(skills)) {
+      return res.status(400).json({ error: "must be array" });
+    }
 
     const stmt = db.prepare(`
       INSERT INTO skills (skill)
       VALUES (?)
-    `)
+    `);
 
-    const result = stmt.run(skill)
+    const insertMany = db.transaction((list) => {
+      for (const item of list) {
+        if (item.skill && item.skill.trim() !== "") {
+          stmt.run(item.skill);
+        }
+      }
+    });
 
-    res.json({
-      message: "create success",
-      id: result.lastInsertRowid
-    })
+    insertMany(skills);
+
+    res.json({ message: "batch insert success" });
   } catch (err) {
-    console.error(err.message)
-    res.status(500).json({ error: err.message })
+    console.error(err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 
