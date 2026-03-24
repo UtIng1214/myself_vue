@@ -388,7 +388,7 @@
       }
     }
 
-    .el-icon {
+    .trash {
       margin-right: 30px;
       cursor: pointer;
       color: red;
@@ -399,7 +399,7 @@
     }
   }
 
-  .timeline:has(.el-icon:hover) {
+  .timeline:has(.trash:hover) {
     border: 1px solid #bfafa0;
     border-radius: 4px;
     background: #bfafa023;

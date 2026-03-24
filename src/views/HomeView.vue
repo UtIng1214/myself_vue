@@ -32,44 +32,42 @@
 			<div class="section-title">
 				<p>學歷</p>
 				<div>
-					<div v-if="!dataEditState && !dataAddNew && !dataDelete">
+					<div v-if="!eduEditState && !eduAddNew && !eduDelete">
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
-
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
-									<el-dropdown-item @click="deleteData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+									<el-dropdown-item @click="addEduData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
+									<el-dropdown-item @click="editEduData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="deleteEduData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
 					</div>
-					<div v-if="dataEditState">
-						<el-icon :size="24" @click="finishEditData()"><Check /></el-icon>
-						<el-icon :size="24" @click="cancelEditData"><Close /></el-icon>
+					<div v-if="eduAddNew">
+						<el-icon :size="24" @click="confirmAddEdu"><Check /></el-icon>
+						<el-icon :size="24" @click="cancelAddEdu"><Close /></el-icon>
 					</div>
-					<div v-if="dataAddNew">
-						<el-icon :size="24" @click="confirmAddData"><Check /></el-icon>
-						<el-icon :size="24" @click="cancelAddData"><Close /></el-icon>
+					<div v-if="eduEditState">
+						<el-icon :size="24" @click="finishEditEdu()"><Check /></el-icon>
+						<el-icon :size="24" @click="cancelEditEdu"><Close /></el-icon>
 					</div>
-					<div v-if="dataDelete">
-						<!-- <el-icon :size="24" @click="confirmAddData"><Check /></el-icon> -->
-						<el-icon :size="24" @click="cancelDeleteData"><Close /></el-icon>
+					<div v-if="eduDelete">
+						<el-icon :size="24" @click="cancelDeleteEdu"><Close /></el-icon>
 					</div>
 				</div>
 			</div>
 
 			<div class="timelines">
 				<!-- 新增 -->
-				<div class="addNewBlock" v-if="dataAddNew">
+				<div class="addNewBlock" v-if="eduAddNew">
 					<div>
 						<p>起始時間：</p>
-						<el-input v-model="addStartDate" placeholder="填寫起始時間"></el-input>
+						<el-input v-model="addEduStartDate" placeholder="填寫起始時間"></el-input>
 					</div>
 					<div>
 						<p>結束時間：</p>
-						<el-input v-model="addEndDate" placeholder="填寫結束時間"></el-input>
+						<el-input v-model="addEduEndDate" placeholder="填寫結束時間"></el-input>
 					</div>
 					<div>
 						<p>學校名稱：</p>
@@ -77,30 +75,25 @@
 					</div>
 					<div>
 						<p>科系名稱：</p>
-						<el-input v-model="addDetails" placeholder="填寫科系名稱"></el-input>
+						<el-input v-model="addEduDetails" placeholder="填寫科系名稱"></el-input>
 					</div>
 				</div>
 
-				<div
-					v-for="item in copyEducation"
-					:key="item.id"
-					class="timeline"
-				>
-					<div v-if="!dataEditState">
+				<div v-for="item in copyEducation" :key="item.id" class="timeline">
+					<div v-if="!eduEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">{{ item.startDate }}-{{ item.endDate }}</div>
 							<div class="timeline-school">{{ item.school }}</div>
 						</div>
-						
 						<ul class="timeline-details">
 							<li>{{ item.details }}</li>
 						</ul>
 					</div>
 
-					<el-icon v-if="dataDelete" @click="confirmDeleteData(item.id)"><DeleteFilled /></el-icon>
+					<el-icon class="trash" v-if="eduDelete" @click="confirmDeleteEdu(item.id)"><DeleteFilled /></el-icon>
 
 					<!-- 修改 -->
-					<div class="timeline-edit" v-if="dataEditState">
+					<div class="timeline-edit" v-if="eduEditState">
 						<div>
 							<p>起始時間：</p>
 							<el-input class="timeInput" v-model="item.startDate" placeholder="填寫起始時間"></el-input>
@@ -126,10 +119,85 @@
 		<div class="job">
 			<div class="section-title">
 				<p>工作經歷</p>
+				<div>
+					<div v-if="!jobEditState && !jobAddNew && !jobDelete">
+						<el-dropdown>
+							<el-icon :size="20"><Edit /></el-icon>
+							<template #dropdown>
+								<el-dropdown-menu>
+									<el-dropdown-item @click="addJobData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
+									<el-dropdown-item @click="editJobData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="deleteJobData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+								</el-dropdown-menu>
+							</template>
+						</el-dropdown>
+					</div>
+					<div v-if="jobAddNew">
+						<el-icon :size="24" @click="confirmAddJob"><Check /></el-icon>
+						<el-icon :size="24" @click="cancelAddJob"><Close /></el-icon>
+					</div>
+					<div v-if="jobEditState">
+						<el-icon :size="24" @click="finishEditJob()"><Check /></el-icon>
+						<el-icon :size="24" @click="cancelEditJob"><Close /></el-icon>
+					</div>
+					<div v-if="jobDelete">
+						<el-icon :size="24" @click="cancelDeleteJob"><Close /></el-icon>
+					</div>
+				</div>
 			</div>
+
 			<div class="timelines">
-				<div v-for="item in copyJob" :key="item.id" class="timeline">
+				<!-- 新增 -->
+				<div class="addNewBlock" v-if="jobAddNew">
 					<div>
+						<p>起始時間：</p>
+						<el-input v-model="addJobStartDate" placeholder="填寫起始時間"></el-input>
+					</div>
+					<div>
+						<p>結束時間：</p>
+						<el-input v-model="addJobEndDate" placeholder="填寫結束時間"></el-input>
+					</div>
+					<div>
+						<p>公司名稱：</p>
+						<el-input v-model="addCompany" placeholder="填寫公司名稱"></el-input>
+					</div>
+					<div>
+						<p>職位：</p>
+						<el-input v-model="addJob" placeholder="填寫職位"></el-input>
+					</div>
+					<!-- <div>
+						<p>工作內容：</p>
+						<el-input v-model="addJobDetails" placeholder="填寫工作內容"></el-input>
+					</div> -->
+					<div>
+						<p>工作內容：</p>
+
+						<div
+							v-for="(detail, index) in addJobDetails"
+							:key="index"
+							class="detail-item"
+						>
+							<el-input
+								v-model="addJobDetails[index]"
+								placeholder="填寫工作內容"
+							/>
+						</div>
+
+						<div class="detail-add-row">
+							<el-input
+								v-model="addJobDetailsInput"
+								placeholder="填寫工作內容"
+								@keyup.enter="handleAddJobDetail"
+							/>
+							<el-icon class="add-icon" @click="handleAddJobDetail">
+								<Plus />
+							</el-icon>
+						</div>
+					</div>
+				</div>
+
+				<div v-for="item in copyJob" :key="item.id" class="timeline">
+					<div v-if="!jobEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">{{ item.startData }}-{{ item.endData }}</div>
 							<div class="timeline-company">{{ item.company }}</div>
@@ -141,6 +209,43 @@
 							</li>
 						</ul>
 					</div>
+
+					<el-icon class="trash" v-if="jobDelete" @click="confirmDeleteJob(item.id)"><DeleteFilled /></el-icon>
+
+					<!-- 修改 -->
+					<div class="timeline-edit" v-if="jobEditState">
+						<div>
+							<p>起始時間：</p>
+							<el-input class="timeInput" v-model="item.startData" placeholder="填寫起始時間"></el-input>
+						</div>
+						<div>
+							<p>結束時間：</p>
+							<el-input class="timeInput" v-model="item.endData" placeholder="填寫結束時間"></el-input>
+						</div>
+						<div>
+							<p>公司名稱：</p>
+							<el-input v-model="item.company" placeholder="填寫公司名稱"></el-input>
+						</div>
+						<div>
+							<p>職位：</p>
+							<el-input v-model="item.job" placeholder="填寫職位"></el-input>
+						</div>
+						<div>
+							<p>工作內容：</p>
+							<!-- <el-input v-model="item.details" type="textarea" placeholder="填寫工作內容"></el-input> -->
+							<div
+								v-for="(detail, detailIndex) in item.details"
+								:key="detailIndex"
+								style="margin-bottom: 10px;"
+							>
+								<el-input
+									v-model="item.details[detailIndex]"
+									placeholder="填寫工作內容"
+								/>
+							</div>
+							<el-icon @click="addDetail(item)"><Plus /></el-icon>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -149,9 +254,61 @@
 		<div class="major">
 			<div class="section-title">
 				<p>專業技能</p>
+				<div>
+					<div v-if="!skillEditState && !skillAddNew && !skillDelete">
+						<el-dropdown>
+							<el-icon :size="20"><Edit /></el-icon>
+							<template #dropdown>
+								<el-dropdown-menu>
+									<el-dropdown-item @click="addSkillData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
+									<el-dropdown-item @click="editSkillData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="deleteSkillData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+								</el-dropdown-menu>
+							</template>
+						</el-dropdown>
+					</div>
+					<div v-if="skillAddNew">
+						<el-icon :size="24" @click="confirmAddSkill()"><Check /></el-icon>
+						<el-icon :size="24" @click="cancelAddSkill"><Close /></el-icon>
+					</div>
+					<div v-if="skillEditState">
+						<el-icon :size="24" @click="finishEditSkill()"><Check /></el-icon>
+						<el-icon :size="24" @click="cancelEditSkill"><Close /></el-icon>
+					</div>
+					<div v-if="skillDelete">
+						<el-icon :size="24" @click="cancelDeleteSkill"><Close /></el-icon>
+					</div>
+				</div>
 			</div>
 			<div class="know_text">
 				<ul class="know_items">
+					<!-- 新增 -->
+					<div class="addNewBlock" v-if="skillAddNew">
+						<div>
+							<!-- <p>起始時間：</p> -->
+							<div
+								v-for="(detail, index) in addSkill"
+								:key="index"
+								class="detail-item"
+							>
+								<el-input
+									v-model="addSkill[index]"
+									placeholder="填寫工作內容"
+								/>
+							</div>
+
+							<el-input
+								v-model="addSkillInput"
+								placeholder="新增專業技能"
+								@keyup.enter="handleAddSkill"
+							>
+							</el-input>
+							<el-icon class="add-icon" @click="handleAddSkill">
+								<Plus />
+							</el-icon>
+						</div>
+					</div
+					>
 					<li v-for="item in copySkills" :key="item.skill" class="know_item">
 						{{ item.skill }}
 					</li>
@@ -204,14 +361,32 @@ const copyJob = ref([]);
 const skills = ref([]);
 const copySkills = ref([]);
 
-const dataEditState = ref(false);
-const dataAddNew = ref(false);
-const dataDelete = ref(false);
+const eduEditState = ref(false);
+const eduAddNew = ref(false);
+const eduDelete = ref(false);
 
-const addStartDate = ref('');
-const addEndDate = ref('');
+const jobEditState = ref(false);
+const jobAddNew = ref(false);
+const jobDelete = ref(false);
+
+const skillEditState = ref(false);
+const skillAddNew = ref(false);
+const skillDelete = ref(false);
+
+const addEduStartDate = ref('');
+const addEduEndDate = ref('');
 const addSchool = ref('');
-const addDetails = ref('');
+const addEduDetails = ref('');
+
+const addJobStartDate = ref('');
+const addJobEndDate = ref('');
+const addCompany = ref('');
+const addJob = ref('');
+const addJobDetails = ref([]);
+const addJobDetailsInput = ref("");
+
+const addSkill = ref([]);
+const addSkillInput = ref('');
 
 onMounted(async () => {
 	await getContacts();
@@ -221,90 +396,103 @@ onMounted(async () => {
 });
 
 const getContacts = async() => {
-  // const res1 = await axios.get("http://localhost:3000/api/contact");
-  // contacts.value = res1.data;
-	// copyContacts.value = JSON.parse(JSON.stringify(res1.data));
-
-
 	const data = await homeStore.getContactsData()
-	console.log('123456:', data);
 	contacts.value = data;
 	copyContacts.value = JSON.parse(JSON.stringify(data));
 };
 
 const getEducation = async() => {
-	const res2 = await axios.get("http://localhost:3000/api/education");
-  education.value = res2.data;
-  copyEducation.value = JSON.parse(JSON.stringify(res2.data));
+	const data = await homeStore.getEducationData();
+  education.value = data;
+  copyEducation.value = JSON.parse(JSON.stringify(data));
 };
 
 const getJob = async() => {
-  const res3 = await axios.get("http://localhost:3000/api/job");
-  job.value = res3.data;
-  copyJob.value = JSON.parse(JSON.stringify(res3.data));
+  const data = await homeStore.getJobData();
+  job.value = data;
+  copyJob.value = JSON.parse(JSON.stringify(data));
 };
 
 const getSkills = async() => {
-  const res4 = await axios.get("http://localhost:3000/api/skills");
-  skills.value = res4.data;
-  copySkills.value = JSON.parse(JSON.stringify(res4.data));
+  const data = await homeStore.getSkillsData();
+  skills.value = data;
+  copySkills.value = JSON.parse(JSON.stringify(data));
 };
 
-const addData = () => {
-	dataAddNew.value = true;
+const addEduData = () => {
+	eduAddNew.value = true;
+};
+const editEduData = () => {
+	eduEditState.value = true;
+};
+const deleteEduData = () => {
+	eduDelete.value = true;
 };
 
-const editData = () => {
-	dataEditState.value = true;
+const addJobData = () => {
+	jobAddNew.value = true;
+};
+const editJobData = () => {
+	jobEditState.value = true;
+};
+const deleteJobData = () => {
+	jobDelete.value = true;
 };
 
-const deleteData = () => {
-	dataDelete.value = true;
+const addSkillData = () => {
+	skillAddNew.value = true;
+};
+const editSkillData = () => {
+	skillEditState.value = true;
+};
+const deleteSkillData = () => {
+	skillDelete.value = true;
 };
 
-const confirmAddData = async() => {
-	try {
-		const payload = {
-			startDate: addStartDate.value,
-			endDate: addEndDate.value,
-			school: addSchool.value,
-			details: addDetails.value,
-		};
-		await axios.post("http://localhost:3000/api/education", payload);
-
-		addStartDate.value = '';
-		addEndDate.value = '';
-		addSchool.value = '';
-		addDetails.value = '';
-		
-		await getEducation();
-		dataAddNew.value = false;
-		ElMessage.success(`新增成功`);
-	} catch (error) {
-		console.log(error);
+const confirmAddEdu = async() => {
+	if (!addEduStartDate.value || !addEduEndDate.value || !addSchool.value || !addEduDetails.value) {
+		ElMessage.error(`格子不可空白`);
+		return;
 	}
-};
 
-const cancelAddData = () => {
-	dataAddNew.value = false;
-	addStartDate.value = '';
-	addEndDate.value = '';
+	const payload = {
+		startDate: addEduStartDate.value,
+		endDate: addEduEndDate.value,
+		school: addSchool.value,
+		details: addEduDetails.value,
+	};
+	await homeStore.postEducationData(payload);
+
+	addEduStartDate.value = '';
+	addEduEndDate.value = '';
 	addSchool.value = '';
-	addDetails.value = '';
+	addEduDetails.value = '';
+	
+	await getEducation();
+	eduAddNew.value = false;
+	ElMessage.success(`新增成功`);
 };
 
-const cancelEditData = () => {
-	copyContacts.value = contacts.value;
+const cancelAddEdu = () => {
+	eduAddNew.value = false;
+	addEduStartDate.value = '';
+	addEduEndDate.value = '';
+	addSchool.value = '';
+	addEduDetails.value = '';
+};
+
+const cancelEditEdu = () => {
+	// copyContacts.value = contacts.value;
 	copyEducation.value = education.value;
 
-	dataEditState.value = false;
+	eduEditState.value = false;
 };
 
-const cancelDeleteData = () => {
-	dataDelete.value = false;
+const cancelDeleteEdu = () => {
+	eduDelete.value = false;
 };
 
-const confirmDeleteData = async(id) => {
+const confirmDeleteEdu = async(id) => {
 	await ElMessageBox.confirm( "是否確認刪除", "警告", {
 		confirmButtonText: "確定",
 		cancelButtonText: "取消",
@@ -314,13 +502,12 @@ const confirmDeleteData = async(id) => {
 	})
 		.then(async() => {
 			try {
-				await axios.delete(`http://localhost:3000/api/education/${id}`);
+				await homeStore.deleteEducationData(id);
 				await getEducation();
-				dataDelete.value = false;
+				eduDelete.value = false;
 				ElMessage.success(`刪除成功`);
 			} catch (error) {
 				console.log(error);
-				
 			}
 		})
 		.catch(() => {
@@ -328,16 +515,137 @@ const confirmDeleteData = async(id) => {
     });
 };
 
-const finishEditData = async() => {	
-	try {
-		await axios.put("http://localhost:3000/api/education", copyEducation.value)
+const finishEditEdu = async() => {	
+	await homeStore.putEducationData(copyEducation.value);
+	await getEducation();
+	eduEditState.value = false;
+	ElMessage.success(`修改成功`);
+};
 
-		await getEducation();
-		dataEditState.value = false;
-		ElMessage.success(`修改成功`);
-	} catch (error) {
-		console.log(error);
+const confirmAddJob = async() => {
+	handleAddJobDetail();
+
+	if (!addJobStartDate.value || !addJobEndDate.value || !addCompany.value || !addJob.value) {
+		ElMessage.error(`格子不可空白`);
+		return;
 	}
 
+	const payload = {
+		startData: addJobStartDate.value,
+		endData: addJobEndDate.value,
+		company: addCompany.value,
+		job: addJob.value,
+		details: addJobDetails.value,
+	}
+
+
+	await homeStore.postJobData(payload);
+	await getJob();
+	jobAddNew.value = false;
+	ElMessage.success(`新增成功`);
+};
+
+const handleAddJobDetail = () => {
+  const value = addJobDetailsInput.value.trim()
+  if (!value) return
+
+  addJobDetails.value.push(value)
+  addJobDetailsInput.value = ""
+}
+
+const cancelAddJob = () => {
+	addJobStartDate.value = '',
+	addJobEndDate.value = '',
+	addCompany.value = '',
+	addJob.value = '',
+	addJobDetailsInput.value = ""
+	addJobDetails.value = [],
+
+	jobAddNew.value = false;
+};
+
+const addDetail = (item) => {
+	if (!item.details) return;
+	if (!Array.isArray(item.details)) {
+		item.details = []
+	}
+	item.details.push("")
+};
+
+const finishEditJob = async() => {
+	await homeStore.putJobData(copyJob.value);
+	await getJob();
+	jobEditState.value = false;
+	ElMessage.success(`修改成功`);
+};
+
+const cancelEditJob = () => {
+	copyJob.value = job.value;
+	jobEditState.value = false;
+};
+
+const cancelDeleteJob = () => {
+	jobDelete.value = false;
+};
+
+const confirmDeleteJob = async(id: number) => {
+	await ElMessageBox.confirm( "是否確認刪除", "警告", {
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		type: "warning",
+		closeOnClickModal: false,
+		closeOnPressEscape: false,
+	})
+		.then(async() => {
+			try {
+				await homeStore.deleteJobData(id);
+				await getJob();
+				jobDelete.value = false;
+				ElMessage.success(`刪除成功`);
+			} catch (error) {
+				console.log(error);
+			}
+		})
+		.catch(() => {
+      // 使用者點擊取消或關閉對話框
+    });
+	jobDelete.value = false;
+};
+
+const handleAddSkill = () => {
+	const value = addSkillInput.value.trim()
+  if (!value) return
+	
+  addSkill.value.push(value)
+  addSkillInput.value = ""
+}
+
+const confirmAddSkill = async() => {
+	handleAddSkill();
+	console.log(addSkill.value);
+	
+	await homeStore.postSkillsData(addSkill.value);
+
+	await getSkills();
+	skillAddNew.value = false;
+	ElMessage.success(`新增成功`);
+};
+
+const cancelAddSkill = () => {
+	addSkill.value = [];
+	addSkillInput.value = "";
+	skillAddNew.value = false;
+};
+
+const finishEditSkill = () => {
+	skillEditState.value = false;
+};
+
+const cancelEditSkill = () => {
+	skillEditState.value = false;
+};
+
+const cancelDeleteSkill = () => {
+	skillDelete.value = false;
 };
 </script>
