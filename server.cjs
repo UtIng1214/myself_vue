@@ -14,17 +14,17 @@ app.use(express.json())
 const db = new Database("./database/app.db")
 
 /**
- * 聯絡資料
+ * 作品集
  */
-app.get("/api/contact", (req, res) => {
+app.get("/api/user", (req, res) => {
   try {
-    const rows = db.prepare("SELECT * FROM contact").all()
+    const rows = db.prepare("SELECT * FROM user").all()
     res.json(rows)
   } catch (err) {
     console.error(err.message)
     res.status(500).json({ error: err.message })
   }
-})
+});
 
 /**
  * 作品集
@@ -306,9 +306,11 @@ app.get("/api/skills", (req, res) => {
     console.error(err.message)
     res.status(500).json({ error: err.message })
   }
-
 });
 
+/**
+ * 新增專業技能
+ */
 app.post("/api/skills", (req, res) => {
   try {
     const skills = req.body;
@@ -338,6 +340,78 @@ app.post("/api/skills", (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+/**
+ * 修改專業技能
+ */
+app.put("/api/skills", (req, res) => {
+  try {
+    const skills = req.body;
+
+    if (!Array.isArray(skills)) {
+      return res.status(400).json({ error: "must be array" });
+    }
+
+    const insertStmt = db.prepare(`
+      INSERT INTO skills (skill)
+      VALUES (?)
+    `);
+
+    const replaceAll = db.transaction((list) => {
+      // 清空舊資料
+      db.prepare("DELETE FROM skills").run();
+
+      // 寫入新資料
+      for (const item of list) {
+        if (item.skill && item.skill.trim() !== "") {
+          insertStmt.run(item.skill.trim());
+        }
+      }
+    });
+
+    replaceAll(skills);
+
+    res.json({ message: "update success (replace all)" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+//------------------------聯絡資料------------------------
+app.get("/api/contact", (req, res) => {
+  try {
+    const rows = db.prepare("SELECT * FROM contact").all()
+    res.json(rows)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).json({ error: err.message })
+  }
+});
+
+app.put("/api/contact", (req, res) => {
+  try {
+    const data = req.body;
+
+    if (!Array.isArray(data) || data.length === 0) {
+      return res.status(400).json({ error: "invalid data" });
+    }
+
+    const { mail, phone, address } = data[0];
+
+    const stmt = db.prepare(`
+      UPDATE contact
+      SET mail = ?, phone = ?, address = ?
+    `);
+
+    stmt.run(mail, phone, address);
+
+    res.json({ message: "update success" });
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).json({ error: err.message })
+  }
+})
 
 //--------------------------------------------------------
 app.listen(3000, () => {

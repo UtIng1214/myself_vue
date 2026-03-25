@@ -40,45 +40,84 @@ img {
   width: 100%;
 }
 nav {
-  padding: 15px 0;
+  padding: 15px 30px;
   margin-bottom: 40px;
   position: relative;
   color: white;
   background-color: black;
+  display: flex;
+  justify-content: space-between;
   @media (max-width: 425px) {
     padding: 70px 0 40px 0;
   }
 
-  .link {
-    text-align: center;
-    font-size: 28px;
-    @media (max-width: 425px) {
-      font-size: 30px;
-    }
-  }
+  .navLeft {
+    display: flex;
+    align-items: center;
 
-  .weather {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 16px;
-    @media (max-width: 768px) {
-      left: 0;
-      top: 10px;
-    }
-    @media (max-width: 425px) {
-      font-size: 14px;
-    }
+    .weather {
+      font-size: 16px;
+      padding-right: 100px;
 
-    &-info {
-      @media (max-width: 768px) {
-        display: flex;
-        p {
-          &:nth-child(1) {
-            padding-right: 10px;
+      @media (max-width: 425px) {
+        font-size: 14px;
+      }
+
+      &-info {
+        @media (max-width: 768px) {
+          display: flex;
+          p {
+            &:nth-child(1) {
+              padding-right: 10px;
+            }
           }
         }
       }
     }
+    .link {
+      // text-align: center;
+      display: flex;
+      gap: 40px;
+      @media (max-width: 425px) {
+        font-size: 30px;
+      }
+  
+      .tag {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        p {
+          font-size: 16px;
+        }
+      }
+  
+      .el-icon {
+        font-size: 24px;
+        background-color: #8b8075;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        // &:focus {
+        //   background-color: #69441e;
+        // }
+      }
+      .router-link-exact-active .el-icon {
+        color: #555;
+        background-color: #f2ea9f;
+      }
+      .router-link-exact-active p {
+        color: #f2ea9f;
+      }
+    }
   }
+
+  .navRight {
+    display: flex;
+    align-items: center;
+    .el-icon {
+      cursor: pointer;
+    }
+  }
+
 }
