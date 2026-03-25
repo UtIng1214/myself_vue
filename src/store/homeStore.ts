@@ -1,19 +1,25 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 
+const api = axios.create({
+	baseURL: process.env.VUE_APP_API_URL,
+});
+
+export default api;
+
 export const useHomeStore = defineStore("homeStore", {
 	state() {
 		return {};
 	},
 	actions: {
-    async getUserData() {
-      try {
-        const { data } = await axios.get("http://localhost:3000/api/user")
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+		async getUserData() {
+			try {
+				const { data } = await axios.get("http://localhost:3000/api/user");
+				return data;
+			} catch (error) {
+				console.log(error);
+			}
+		},
 
 		//------------------------學歷------------------------
 		async getEducationData() {
@@ -111,14 +117,14 @@ export const useHomeStore = defineStore("homeStore", {
 			}
 		},
 
-    async putSkillsData(payload: { skill: string }[]) {
-      try {
-        await axios.put("http://localhost:3000/api/skills", payload)
-        return;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+		async putSkillsData(payload: { skill: string }[]) {
+			try {
+				await axios.put("http://localhost:3000/api/skills", payload);
+				return;
+			} catch (error) {
+				console.log(error);
+			}
+		},
 
 		//------------------------聯絡方式------------------------
 		async getContactsData() {
@@ -130,13 +136,13 @@ export const useHomeStore = defineStore("homeStore", {
 			}
 		},
 
-    async putContactsData(payload: any) {
-      try {
-        await axios.put("http://localhost:3000/api/contact", payload);
-        return;
-      } catch (error) {
-        console.log(error);
-      }
-    }
+		async putContactsData(payload: any) {
+			try {
+				await axios.put("http://localhost:3000/api/contact", payload);
+				return;
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 });
