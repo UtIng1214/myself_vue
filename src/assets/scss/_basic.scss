@@ -54,6 +54,7 @@ nav {
   .navLeft {
     display: flex;
     align-items: center;
+    position: relative;
 
     .weather {
       font-size: 16px;
@@ -110,6 +111,62 @@ nav {
         color: #f2ea9f;
       }
     }
+
+  }
+  
+  .login {
+    position: absolute;
+    bottom: -200px;
+    right: 20px;
+    background-color: white;
+    border: 1px #555 solid;
+    border-radius: 10px;
+    padding: 20px 10px;
+    width: 300px;
+
+    > div {
+      > span {
+        color: red;
+        font-size: 14px;
+        display: block;
+        padding-bottom: 10px;
+      }
+  
+      .account,
+      .password {
+        display: flex;
+        padding-bottom: 10px;
+        > p {
+          color: black;
+        }
+  
+        .el-input {
+          width: 80%;
+        }
+      }
+  
+      > button {
+        width: 100%;
+        padding: 5px 0;
+        color: white;
+        background-color: #bfafa0;
+        border: 1px #bfafa0 solid;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: .3s;
+  
+        &:hover {
+          color: #333;
+          background-color: #f2ea9f;
+          border: 1px #f2ea9f solid;
+        }
+  
+        &:active {
+          border: 1px #bfafa0 solid;
+        }
+      }
+    }
+
   }
 
   .navRight {

@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 
 const api = axios.create({
 	baseURL: process.env.VUE_APP_API_URL,
+  withCredentials: true,
 });
 
 export default api;
@@ -14,17 +15,49 @@ export const useHomeStore = defineStore("homeStore", {
 	actions: {
 		async getUserData() {
 			try {
-				const { data } = await axios.get("http://localhost:3000/api/user");
+				const { data } = await api.get("api/user");
 				return data;
 			} catch (error) {
 				console.log(error);
 			}
 		},
 
+    async postUserData(payload: any) {
+      try {
+        const { data } = await api.post("api/user", payload);
+        return data.message === "login success";
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+
+    async getAuthStatus() {
+      try {
+        const { data } = await api.get("/api/auth/me");
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async logoutUser() {
+      try {
+        const { data } = await api.post("api/auth/logout", {}, {
+          withCredentials: true
+        });
+        return data.message === "logout success";
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+
+
 		//------------------------學歷------------------------
 		async getEducationData() {
 			try {
-				const { data } = await axios.get("http://localhost:3000/api/education");
+				const { data } = await api.get("api/education");
 				return data;
 			} catch (error) {
 				console.log(error);
@@ -33,7 +66,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async postEducationData(payload: any) {
 			try {
-				await axios.post("http://localhost:3000/api/education", payload);
+				await api.post("api/education", payload);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -42,7 +75,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async putEducationData(data: any) {
 			try {
-				await axios.put("http://localhost:3000/api/education", data);
+				await api.put("api/education", data);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -51,7 +84,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async deleteEducationData(id: number) {
 			try {
-				await axios.delete(`http://localhost:3000/api/education/${id}`);
+				await api.delete(`api/education/${id}`);
 			} catch (error) {
 				console.log(error);
 			}
@@ -60,7 +93,7 @@ export const useHomeStore = defineStore("homeStore", {
 		//------------------------工作經歷------------------------
 		async getJobData() {
 			try {
-				const { data } = await axios.get("http://localhost:3000/api/job");
+				const { data } = await api.get("api/job");
 				console.log(data);
 
 				return data;
@@ -73,7 +106,7 @@ export const useHomeStore = defineStore("homeStore", {
 			try {
 				console.log(payload);
 
-				await axios.post("http://localhost:3000/api/job", payload);
+				await api.post("api/job", payload);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -82,7 +115,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async putJobData(data: any) {
 			try {
-				await axios.put("http://localhost:3000/api/job", data);
+				await api.put("api/job", data);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -91,7 +124,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async deleteJobData(id: number) {
 			try {
-				await axios.delete(`http://localhost:3000/api/job/${id}`);
+				await api.delete(`api/job/${id}`);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -101,7 +134,7 @@ export const useHomeStore = defineStore("homeStore", {
 		//------------------------專業技能------------------------
 		async getSkillsData() {
 			try {
-				const { data } = await axios.get("http://localhost:3000/api/skills");
+				const { data } = await api.get("api/skills");
 				return data;
 			} catch (error) {
 				console.log(error);
@@ -110,7 +143,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async postSkillsData(payload: { skill: string }[]) {
 			try {
-				await axios.post("http://localhost:3000/api/skills", payload);
+				await api.post("api/skills", payload);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -119,7 +152,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async putSkillsData(payload: { skill: string }[]) {
 			try {
-				await axios.put("http://localhost:3000/api/skills", payload);
+				await api.put("api/skills", payload);
 				return;
 			} catch (error) {
 				console.log(error);
@@ -129,7 +162,7 @@ export const useHomeStore = defineStore("homeStore", {
 		//------------------------聯絡方式------------------------
 		async getContactsData() {
 			try {
-				const { data } = await axios.get("http://localhost:3000/api/contact");
+				const { data } = await api.get("api/contact");
 				return data;
 			} catch (error) {
 				console.log(error);
@@ -138,7 +171,7 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async putContactsData(payload: any) {
 			try {
-				await axios.put("http://localhost:3000/api/contact", payload);
+				await api.put("api/contact", payload);
 				return;
 			} catch (error) {
 				console.log(error);

@@ -17,6 +17,7 @@
 					<el-icon><UserFilled /></el-icon>
 					<p>關於我</p>
 				</router-link>
+				
 				<router-link to="/about" class="tag">
 					<el-icon><Management /></el-icon>
 					<p>作品集</p>
@@ -25,46 +26,99 @@
 		</div>
 
 		<div class="navRight">
-			<el-icon :size="24"><Lock /></el-icon>
+			<el-icon @click="openLogin" :size="24"><Lock /></el-icon>
 			<el-icon :size="24"><Unlock /></el-icon>
 		</div>
 
+		<div class="login" v-if="loginBlock">
+			<div v-if="!allEditState">
+				<span>*如需修改內容請先登入</span>
+				<div class="account">
+					<p>帳號：</p>
+					<el-input v-model="account" clearable placeholder="填寫帳號："></el-input>
+				</div>
+				<div class="password">
+					<p>密碼：</p>
+					<el-input v-model="password" clearable placeholder="填寫密碼："></el-input>
+				</div>
+				<button @click="checkLogin">登入</button>
+			</div>
+
+			<div v-if="allEditState" class="loggedIn">
+				已登入
+				<button @click="checkLogout">登出</button>
+			</div>
+		</div>
+
 	</nav>
-	<router-view />
+	<router-view v-slot="{ Component }">
+		<component :is="Component" :allEditState="allEditState" />
+	</router-view>
+	<!-- <router-view /> -->
 </template>
 
-<!-- <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style> -->
 <!-- <script src="./views/js/HomeView.js"></script> -->
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { getWeatherData } from "./views/js/api/weatherApi";
 import { useHomeStore } from "@/store/homeStore";
+import { ElMessage } from "element-plus";
 
 const homeStore = useHomeStore();
 const weather = ref();
+const loginBlock = ref(false);
+const account = ref('');
+const password = ref('');
+const allEditState = ref(false);
+
 onMounted(async() => {
+	await weatherData();
+	await homeStore.getAuthStatus();
+	await homeStore.getUserData();
+});
+
+const openLogin = () => {
+	loginBlock.value = true;
+};
+
+const checkLogin = async() => {
+	const payload = {
+		account: account.value,
+		password: password.value
+	}
+
+	const success = await homeStore.postUserData(payload);
+
+	if (success) {
+		allEditState.value = true;
+		ElMessage.success(`登入成功`);
+	}else {
+		ElMessage.error(`資料有誤`);
+	}
+};
+
+const getAuthStatus = async () => {
+  try {
+    const data = await homeStore.getAuthStatus();
+    allEditState.value = data.isAuthenticated;
+  } catch (error) {
+    console.log(error);
+    allEditState.value = false;
+  }
+};
+
+const checkLogout = async() => {
+	const success = await homeStore.logoutUser();
+	if (success) {
+		account.value = '';
+		password.value = '';
+		ElMessage.success(`登出成功`);
+	}
+	allEditState.value = false;
+};
+
+const weatherData = async() => {
 	try {
 		const response = await getWeatherData("F-C0032-001", {
 			locationName: "新北市",
@@ -78,13 +132,6 @@ onMounted(async() => {
 	} catch (error) {
 		console.error("無法獲取天氣資訊", error);
 	}
-
-	await getUser();
-});
-
-const getUser = async () => {
-	const data = await homeStore.getUserData();
-	console.log('user: ', data);
 };
 
 // export default {

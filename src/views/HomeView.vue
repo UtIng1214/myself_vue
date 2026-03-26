@@ -15,13 +15,13 @@
 				<div class="aboutMe">
 					<div class="title">ABOUT ME</div>
 					<div class="text">
-						擁有2年網站與應用程式開發經驗。
-						<br />
-						在北祥服務科技期間，我負責開發永豐銀行內部資訊網站及行銷頁面，並參與新行動銀行
-						App 的改版與測試工作。
-						<br />
-						在立達徵信社，我專注於舊網站優化、美化及 RWD、SEO
-						改善，並成功製作多個委託網站。我注重細節與品質，能有效解決問題，為團隊創造價值。
+						<p>擁有3年網站開發經驗。</p>
+						<span>- 熟悉vue3、TypeScript 、HTML、SASS / SCSS、RWD</span>
+						<span>- 熟悉 Git 使用操作</span>
+						<span>- 熟悉串接 API</span>
+						<span>- 具備資料庫MySQL使用經驗</span>
+						<span>- 具備 Figma 使用經驗，基礎UI/UX觀念</span>
+						<span>- 曾參與SEO優化</span>
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 			<div class="section-title">
 				<p>學歷</p>
 				<div>
-					<div v-if="!eduEditState && !eduAddNew && !eduDelete">
+					<div v-if="props.allEditState && !eduEditState && !eduAddNew && !eduDelete">
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
@@ -150,7 +150,7 @@
 			<div class="section-title">
 				<p>工作經歷</p>
 				<div>
-					<div v-if="!jobEditState && !jobAddNew && !jobDelete">
+					<div v-if="props.allEditState && !jobEditState && !jobAddNew && !jobDelete">
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
@@ -301,7 +301,7 @@
 			<div class="section-title">
 				<p>專業技能</p>
 				<div>
-					<div v-if="!skillEditState && !skillAddNew">
+					<div v-if="props.allEditState && !skillEditState && !skillAddNew">
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
@@ -367,7 +367,7 @@
 			<div class="section-title">
 				<p>聯絡方式</p>
 				<div>
-					<div v-if="!contactEditState">
+					<div v-if="props.allEditState && !contactEditState">
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
@@ -432,7 +432,7 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useHomeStore } from "@/store/homeStore";
 
@@ -476,6 +476,10 @@ const addJobDetailsInput = ref("");
 
 const addSkill = ref<string[]>([]);
 const addSkillInput = ref("");
+
+const props = defineProps<{
+	allEditState: boolean;
+}>();
 
 onMounted(async () => {
 	await getEducation();
@@ -765,7 +769,15 @@ const confirmAddContact = async() => {
 
 const cancelAddContact = () => {
 	copyContacts.value = contacts.value;
-	
 	contactEditState.value = false;
 };
+
+// const allEditState = ref(false);
+// watch(
+// 	() => props.allEditState,
+// 	(newVal) => {
+// 		allEditState.value = newVal;
+// 		console.log(allEditState.value);
+// 	}
+// )
 </script>

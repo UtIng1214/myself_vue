@@ -1,21 +1,57 @@
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
+require("dotenv").config();
 
 const express = require("express")
+const session = require("express-session");
 const Database = require("better-sqlite3")
 const cors = require("cors")
 
 const app = express()
 
-app.use(cors())
+const allowlist = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map(v => v.trim())
+  .filter(Boolean);
+  
+
+// app.use(cors())
 app.use(express.json())
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowlist.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: true
+}));
+// app.use(cors({
+//   origin: "http://localhost:8080", // 改成你的前端網址
+//   credentials: true,
+// }));
+
+
+app.use(session({
+  secret: "your-secret-key",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,      // localhost 開發通常 false
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60, // 1 小時
+  },
+}));
 
 // 連接 SQLite
 const db = new Database("./database/app.db")
 
-/**
- * 作品集
- */
+
+//------------------------登出登入------------------------
 app.get("/api/user", (req, res) => {
   try {
     const rows = db.prepare("SELECT * FROM user").all()
@@ -26,9 +62,59 @@ app.get("/api/user", (req, res) => {
   }
 });
 
-/**
- * 作品集
- */
+app.get("/api/auth/me", (req, res) => {
+  console.log("me session =", req.session);
+  
+  if (req.session && req.session.isAuthenticated) {
+    return res.json({
+      isAuthenticated: true,
+      userId: req.session.userId,
+    });
+  }
+
+  res.json({
+    isAuthenticated: false,
+  });
+});
+
+app.post("/api/user", (req, res) => {
+  try {
+    const { account, password } = req.body || {};
+
+    if (!account || !password) {
+      return res.status(400).json({ error: "account and password are required" });
+    }
+
+    const user = db.prepare("SELECT * FROM user WHERE account = ?").get(account);
+
+    if (!user || user.password !== password) {
+      return res.status(401).json({ error: "account or password incorrect" });
+    }
+
+    req.session.isAuthenticated = true;
+    req.session.userId = user.id;
+
+    console.log("login session =", req.session);
+
+    res.json({ message: "login success" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/api/auth/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: "logout failed" });
+    }
+
+    res.clearCookie("connect.sid");
+    res.json({ message: "logout success" });
+  });
+});
+
+//------------------------作品集------------------------
 app.get("/api/works", (req, res) => {
   try {
     const rows = db.prepare("SELECT * FROM works").all()
