@@ -30,9 +30,19 @@ app.use(express.json())
 //   },
 //   credentials: true
 // }));
+const allowedOrigins = [
+  'https://kevinyaa.com',
+  'http://localhost:8080'
+];
+
 app.use(cors({
-  origin: "http://localhost:8080", // 改成你的前端網址
-  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
+  },
 }));
 
 
@@ -50,6 +60,11 @@ app.use(session({
 // 連接 SQLite
 const db = new Database("./database/app.db")
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`API running on port ${PORT}`);
+});
 
 //------------------------登出登入------------------------
 app.get("/api/user", (req, res) => {
