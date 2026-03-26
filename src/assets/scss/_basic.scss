@@ -82,17 +82,17 @@ nav {
       @media (max-width: 425px) {
         font-size: 30px;
       }
-  
+
       .tag {
         display: flex;
         flex-direction: column;
         align-items: center;
-  
+
         p {
           font-size: 16px;
         }
       }
-  
+
       .el-icon {
         font-size: 24px;
         background-color: #8b8075;
@@ -111,12 +111,11 @@ nav {
         color: #f2ea9f;
       }
     }
-
   }
-  
+
   .login {
     position: absolute;
-    bottom: -200px;
+    top: 75px;
     right: 20px;
     background-color: white;
     border: 1px #555 solid;
@@ -131,7 +130,7 @@ nav {
         display: block;
         padding-bottom: 10px;
       }
-  
+
       .account,
       .password {
         display: flex;
@@ -139,12 +138,12 @@ nav {
         > p {
           color: black;
         }
-  
+
         .el-input {
           width: 80%;
         }
       }
-  
+
       > button {
         width: 100%;
         padding: 5px 0;
@@ -153,20 +152,23 @@ nav {
         border: 1px #bfafa0 solid;
         border-radius: 3px;
         cursor: pointer;
-        transition: .3s;
-  
+        transition: 0.3s;
+
         &:hover {
           color: #333;
           background-color: #f2ea9f;
           border: 1px #f2ea9f solid;
         }
-  
+
         &:active {
           border: 1px #bfafa0 solid;
         }
       }
     }
 
+    .logout {
+      color: black;
+    }
   }
 
   .navRight {
@@ -176,5 +178,4 @@ nav {
       cursor: pointer;
     }
   }
-
 }

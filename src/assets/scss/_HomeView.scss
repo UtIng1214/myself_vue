@@ -138,7 +138,7 @@
         p {
           font-size: 20px;
         }
-        
+
         span {
           font-size: 18px;
           display: block;
@@ -201,7 +201,7 @@
 
 .el-select {
   margin-bottom: 20px;
-  width: 300px
+  width: 300px;
 }
 .know_items {
   margin: 0;
@@ -271,13 +271,19 @@
   }
 }
 .contact_item {
-  margin-bottom: 10px;
-}
-
-.contact_item span {
-  font-size: 1rem;
   display: flex;
-  align-items: center;
+  margin-bottom: 10px;
+
+  > span {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  > div {
+    padding-left: 10px;
+  }
 }
 
 .timelines {
@@ -386,7 +392,7 @@
         display: flex;
         // gap: 5px;
         padding: 0 5px;
-        
+
         .el-input {
           width: 250px;
         }
@@ -404,7 +410,6 @@
       &:hover {
         color: #666;
       }
-
     }
   }
 

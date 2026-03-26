@@ -13,27 +13,27 @@ const allowlist = (process.env.CORS_ORIGINS || "")
   .split(",")
   .map(v => v.trim())
   .filter(Boolean);
-  
 
-// app.use(cors())
+
 app.use(express.json())
 
-app.use(cors({
-  origin(origin, callback) {
-    if (!origin) return callback(null, true);
-
-    if (allowlist.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error(`Not allowed by CORS: ${origin}`));
-  },
-  credentials: true
-}));
+// app.use(cors())
 // app.use(cors({
-//   origin: "http://localhost:8080", // 改成你的前端網址
-//   credentials: true,
+//   origin(origin, callback) {
+//     if (!origin) return callback(null, true);
+
+//     if (allowlist.includes(origin)) {
+//       return callback(null, true);
+//     }
+
+//     return callback(new Error(`Not allowed by CORS: ${origin}`));
+//   },
+//   credentials: true
 // }));
+app.use(cors({
+  origin: "http://localhost:8080", // 改成你的前端網址
+  credentials: true,
+}));
 
 
 app.use(session({
@@ -64,7 +64,7 @@ app.get("/api/user", (req, res) => {
 
 app.get("/api/auth/me", (req, res) => {
   console.log("me session =", req.session);
-  
+
   if (req.session && req.session.isAuthenticated) {
     return res.json({
       isAuthenticated: true,

@@ -4,7 +4,7 @@
 			<div class="pic">
 				<div class="bg"></div>
 				<div class="my_pic">
-					<!-- <img src="../assets/images/my_pic.png" alt="myslef" /> -->
+					<img src="../assets/images/my_pic.png" alt="myslef" />
 				</div>
 			</div>
 			<div class="introduce">
@@ -32,14 +32,24 @@
 			<div class="section-title">
 				<p>學歷</p>
 				<div>
-					<div v-if="props.allEditState && !eduEditState && !eduAddNew && !eduDelete">
+					<div
+						v-if="
+							props.allEditState && !eduEditState && !eduAddNew && !eduDelete
+						"
+					>
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addEduData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editEduData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
-									<el-dropdown-item @click="deleteEduData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+									<el-dropdown-item @click="addEduData"
+										><el-icon><Plus /></el-icon>新增</el-dropdown-item
+									>
+									<el-dropdown-item @click="editEduData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
+									<el-dropdown-item @click="deleteEduData"
+										><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -150,14 +160,24 @@
 			<div class="section-title">
 				<p>工作經歷</p>
 				<div>
-					<div v-if="props.allEditState && !jobEditState && !jobAddNew && !jobDelete">
+					<div
+						v-if="
+							props.allEditState && !jobEditState && !jobAddNew && !jobDelete
+						"
+					>
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addJobData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editJobData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
-									<el-dropdown-item @click="deleteJobData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+									<el-dropdown-item @click="addJobData"
+										><el-icon><Plus /></el-icon>新增</el-dropdown-item
+									>
+									<el-dropdown-item @click="editJobData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
+									<el-dropdown-item @click="deleteJobData"
+										><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -211,7 +231,10 @@
 							:key="index"
 							class="detail-item"
 						>
-							<el-input	v-model="addJobDetails[index]" placeholder="填寫工作內容"	/>
+							<el-input
+								v-model="addJobDetails[index]"
+								placeholder="填寫工作內容"
+							/>
 						</div>
 
 						<div class="detail-add-row">
@@ -287,7 +310,10 @@
 								:key="detailIndex"
 								style="margin-bottom: 10px"
 							>
-								<el-input	v-model="item.details[detailIndex]" placeholder="填寫工作內容" />
+								<el-input
+									v-model="item.details[detailIndex]"
+									placeholder="填寫工作內容"
+								/>
 							</div>
 							<el-icon @click="addDetail(item)"><Plus /></el-icon>
 						</div>
@@ -306,8 +332,12 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addSkillData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editSkillData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="addSkillData"
+										><el-icon><Plus /></el-icon>新增</el-dropdown-item
+									>
+									<el-dropdown-item @click="editSkillData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -332,7 +362,10 @@
 								:key="index"
 								class="detail-item"
 							>
-								<el-input v-model="addSkill[index]" placeholder="填寫專業技能" />
+								<el-input
+									v-model="addSkill[index]"
+									placeholder="填寫專業技能"
+								/>
 							</div>
 							<el-input
 								v-model="addSkillInput"
@@ -372,7 +405,9 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="editContactData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="editContactData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -386,7 +421,7 @@
 			<div class="know_text" v-for="item in copyContacts" :key="item.mail">
 				<ul class="contact_items">
 					<li class="contact_item">
-						📧 
+						📧
 						<span v-if="!contactEditState">{{ item.mail }}</span>
 						<div v-if="contactEditState">
 							<el-input
@@ -397,7 +432,7 @@
 						</div>
 					</li>
 					<li class="contact_item">
-						📞 
+						📞
 						<span v-if="!contactEditState">{{ item.phone }}</span>
 						<div v-if="contactEditState">
 							<el-input
@@ -408,7 +443,7 @@
 						</div>
 					</li>
 					<li class="contact_item">
-						📍 
+						📍
 						<span v-if="!contactEditState">{{ item.address }}</span>
 						<div v-if="contactEditState">
 							<el-input
@@ -742,9 +777,9 @@ const cancelAddSkill = () => {
 	skillAddNew.value = false;
 };
 
-const finishEditSkill = async() => {
+const finishEditSkill = async () => {
 	console.log(copySkills.value);
-	
+
 	await homeStore.putSkillsData(copySkills.value);
 
 	await getSkills();
@@ -757,9 +792,9 @@ const cancelEditSkill = () => {
 	skillEditState.value = false;
 };
 
-const confirmAddContact = async() => {
+const confirmAddContact = async () => {
 	console.log(copyContacts.value);
-	
+
 	await homeStore.putContactsData(copyContacts.value);
 
 	await getContacts();
