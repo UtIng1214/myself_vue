@@ -31,7 +31,7 @@
       }
     }
     .my_pic {
-      width: 320px;
+      width: 280px;
       margin: auto;
       position: relative;
       @media (max-width: 768px) {
@@ -175,6 +175,7 @@
 .know_text {
   padding-top: 20px;
   padding-left: 80px;
+  padding-right: 10px;
   margin-bottom: 40px;
   position: relative;
   &::after {
@@ -185,15 +186,12 @@
     position: absolute;
     left: 30px;
     bottom: 0;
-    @media (max-width: 425px) {
+    @media (max-width: 768px) {
       left: 15px;
     }
   }
   @media (max-width: 768px) {
-    padding-left: 50px;
-  }
-  @media (max-width: 425px) {
-    padding-left: 0;
+    padding-left: 40px;
   }
 }
 
@@ -204,11 +202,11 @@
 .know_items {
   margin: 0;
   @media (max-width: 768px) {
-    padding-left: 30px;
+    // padding-left: 30px;
   }
-  @media (max-width: 425px) {
-    padding-left: 60px;
-  }
+  // @media (max-width: 425px) {
+  //   padding-left: 60px;
+  // }
 }
 .know_items.portfolio {
   display: flex;
@@ -229,10 +227,13 @@
 }
 .know_item.portfolio {
   list-style-type: none;
-  width: 480px;
+  width: 48%;
   box-shadow: 0px 6px 11px 0px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   overflow: hidden;
+  @media (max-width: 768px) {
+    width: 480px;
+  }
 
   img {
     max-height: 240px;
@@ -333,7 +334,7 @@
     padding-left: 20px;
 
     @media (max-width: 768px) {
-      align-items: flex-start
+      align-items: flex-start;
     }
     @media (max-width: 425px) {
       padding-bottom: 20px;
@@ -419,17 +420,16 @@
           display: flex;
           // gap: 5px;
           padding: 0 5px;
-  
+
           .el-input {
             width: 250px;
           }
-  
+
           .timeInput {
             width: 100px;
           }
         }
       }
-
     }
 
     .trash {

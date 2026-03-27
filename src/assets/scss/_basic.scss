@@ -47,9 +47,9 @@ nav {
   background-color: black;
   display: flex;
   justify-content: space-between;
-  // @media (max-width: 425px) {
-  //   padding: 70px 0 40px 0;
-  // }
+  @media (max-width: 425px) {
+    padding: 10px 20px;
+  }
 
   .navLeft {
     display: flex;
@@ -61,15 +61,11 @@ nav {
       padding-right: 100px;
 
       @media (max-width: 768px) {
-        padding-right: 40px;
-      }
-      @media (max-width: 425px) {
         font-size: 14px;
       }
 
       &-info {
         @media (max-width: 768px) {
-          display: flex;
           p {
             &:nth-child(1) {
               padding-right: 10px;
