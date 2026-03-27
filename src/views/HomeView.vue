@@ -32,24 +32,14 @@
 			<div class="section-title">
 				<p>學歷</p>
 				<div>
-					<div
-						v-if="
-							props.allEditState && !eduEditState && !eduAddNew && !eduDelete
-						"
-					>
+					<div v-if="props.allEditState && !eduEditState && !eduAddNew && !eduDelete">
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addEduData"
-										><el-icon><Plus /></el-icon>新增</el-dropdown-item
-									>
-									<el-dropdown-item @click="editEduData"
-										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
-									>
-									<el-dropdown-item @click="deleteEduData"
-										><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item
-									>
+									<el-dropdown-item @click="addEduData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
+									<el-dropdown-item @click="editEduData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="deleteEduData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -102,7 +92,7 @@
 					<div v-if="!eduEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">
-								{{ item.startDate }}-{{ item.endDate }}
+								<p>{{ item.startDate }}-{{ item.endDate }}</p>
 							</div>
 							<div class="timeline-school">{{ item.school }}</div>
 						</div>
@@ -119,7 +109,7 @@
 					/></el-icon>
 
 					<!-- 修改 -->
-					<div class="timeline-edit" v-if="eduEditState">
+					<div class="timeline-edit timeline-date" v-if="eduEditState">
 						<div>
 							<p>起始時間：</p>
 							<el-input
@@ -169,15 +159,9 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addJobData"
-										><el-icon><Plus /></el-icon>新增</el-dropdown-item
-									>
-									<el-dropdown-item @click="editJobData"
-										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
-									>
-									<el-dropdown-item @click="deleteJobData"
-										><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item
-									>
+									<el-dropdown-item @click="addJobData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
+									<el-dropdown-item @click="editJobData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="deleteJobData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -254,7 +238,7 @@
 					<div v-if="!jobEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">
-								{{ item.startData }}-{{ item.endData }}
+								<p>{{ item.startData }}-{{ item.endData }}</p>
 							</div>
 							<div class="timeline-company">{{ item.company }}</div>
 							<div class="timeline-job">{{ item.job }}</div>
@@ -275,33 +259,35 @@
 					</el-icon>
 
 					<!-- 修改 -->
-					<div class="timeline-edit" v-if="jobEditState">
-						<div>
-							<p>起始時間：</p>
-							<el-input
-								class="timeInput"
-								v-model="item.startData"
-								placeholder="填寫起始時間"
-							></el-input>
-						</div>
-						<div>
-							<p>結束時間：</p>
-							<el-input
-								class="timeInput"
-								v-model="item.endData"
-								placeholder="填寫結束時間"
-							></el-input>
-						</div>
-						<div>
-							<p>公司名稱：</p>
-							<el-input
-								v-model="item.company"
-								placeholder="填寫公司名稱"
-							></el-input>
-						</div>
-						<div>
-							<p>職位：</p>
-							<el-input v-model="item.job" placeholder="填寫職位"></el-input>
+					<div class="timeline-edit timeline-date" v-if="jobEditState">
+						<div class="editTop">
+							<div>
+								<p>起始時間：</p>
+								<el-input
+									class="timeInput"
+									v-model="item.startData"
+									placeholder="填寫起始時間"
+								></el-input>
+							</div>
+							<div>
+								<p>結束時間：</p>
+								<el-input
+									class="timeInput"
+									v-model="item.endData"
+									placeholder="填寫結束時間"
+								></el-input>
+							</div>
+							<div>
+								<p>公司名稱：</p>
+								<el-input
+									v-model="item.company"
+									placeholder="填寫公司名稱"
+								></el-input>
+							</div>
+							<div>
+								<p>職位：</p>
+								<el-input v-model="item.job" placeholder="填寫職位"></el-input>
+							</div>
 						</div>
 						<div>
 							<p>工作內容：</p>
@@ -332,12 +318,8 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addSkillData"
-										><el-icon><Plus /></el-icon>新增</el-dropdown-item
-									>
-									<el-dropdown-item @click="editSkillData"
-										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
-									>
+									<el-dropdown-item @click="addSkillData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
+									<el-dropdown-item @click="editSkillData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -405,9 +387,7 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="editContactData"
-										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
-									>
+									<el-dropdown-item @click="editContactData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -466,8 +446,7 @@
 <!-- <script src="./js/HomeView.ts"></script> -->
 
 <script setup lang="ts">
-import axios from "axios";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useHomeStore } from "@/store/homeStore";
 
@@ -616,9 +595,7 @@ const cancelAddEdu = () => {
 };
 
 const cancelEditEdu = () => {
-	// copyContacts.value = contacts.value;
-	copyEducation.value = education.value;
-
+	copyEducation.value = JSON.parse(JSON.stringify(education.value));
 	eduEditState.value = false;
 };
 
@@ -716,7 +693,7 @@ const finishEditJob = async () => {
 };
 
 const cancelEditJob = () => {
-	copyJob.value = job.value;
+	copyJob.value = JSON.parse(JSON.stringify(job.value));
 	jobEditState.value = false;
 };
 
@@ -758,7 +735,6 @@ const handleAddSkill = () => {
 
 const confirmAddSkill = async () => {
 	handleAddSkill();
-	console.log(addSkill.value);
 
 	const payload = addSkill.value.map((item: any) => ({
 		skill: item,
@@ -778,8 +754,6 @@ const cancelAddSkill = () => {
 };
 
 const finishEditSkill = async () => {
-	console.log(copySkills.value);
-
 	await homeStore.putSkillsData(copySkills.value);
 
 	await getSkills();
@@ -793,8 +767,6 @@ const cancelEditSkill = () => {
 };
 
 const confirmAddContact = async () => {
-	console.log(copyContacts.value);
-
 	await homeStore.putContactsData(copyContacts.value);
 
 	await getContacts();
@@ -806,13 +778,4 @@ const cancelAddContact = () => {
 	copyContacts.value = contacts.value;
 	contactEditState.value = false;
 };
-
-// const allEditState = ref(false);
-// watch(
-// 	() => props.allEditState,
-// 	(newVal) => {
-// 		allEditState.value = newVal;
-// 		console.log(allEditState.value);
-// 	}
-// )
 </script>

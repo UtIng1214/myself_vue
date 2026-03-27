@@ -9,10 +9,10 @@ const cors = require("cors")
 
 const app = express()
 
-const allowlist = (process.env.CORS_ORIGINS || "")
-  .split(",")
-  .map(v => v.trim())
-  .filter(Boolean);
+// const allowlist = (process.env.CORS_ORIGINS || "")
+//   .split(",")
+//   .map(v => v.trim())
+//   .filter(Boolean);
 
 
 app.use(express.json())

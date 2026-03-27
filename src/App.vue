@@ -49,8 +49,8 @@
 					<p>密碼：</p>
 					<el-input
 						v-model="password"
-						clearable
 						placeholder="填寫密碼："
+						show-password
 					></el-input>
 				</div>
 				<button @click="checkLogin">登入</button>
@@ -88,17 +88,11 @@ onMounted(async () => {
 	await weatherData();
 	await getAuthStatus();
 	await homeStore.getUserData();
-
-	// document.addEventListener("click", handleClickOutside);
 });
 
 onBeforeUnmount(() => {
 	document.removeEventListener("click", handleClickOutside);
 });
-
-const openLogin = () => {
-	loginBlock.value = true;
-};
 
 const checkLogin = async () => {
 	const payload = {
@@ -153,7 +147,6 @@ const weatherData = async () => {
 };
 
 const handleClickOutside = (event) => {
-	console.log("clicked outside");
 	const el = loginRef.value;
 
 	if (!el) return;

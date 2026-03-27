@@ -13,6 +13,7 @@ export const useHomeStore = defineStore("homeStore", {
 		return {};
 	},
 	actions: {
+		//------------------------登入登出------------------------
 		async getUserData() {
 			try {
 				const { data } = await api.get("/api/user");
@@ -180,5 +181,17 @@ export const useHomeStore = defineStore("homeStore", {
 				console.log(error);
 			}
 		},
+
+		//------------------------作品集------------------------
+    async getWorksData() {
+      try {
+        const { data } = await api.get("/api/works");
+        console.log(data);
+        
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
 	},
 });

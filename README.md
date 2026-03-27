@@ -1,4 +1,4 @@
-# my-vue
+# yuting-vue
 
 ## Project setup
 ```
