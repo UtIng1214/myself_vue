@@ -4,7 +4,7 @@
 			<div class="pic">
 				<div class="bg"></div>
 				<div class="my_pic">
-					<img src="/images/my_pic.png" alt="myslef" />
+					<img src="/YuTing/images/my_pic.png" alt="myslef" />
 				</div>
 			</div>
 			<div class="introduce">
@@ -32,14 +32,24 @@
 			<div class="section-title">
 				<p>學歷</p>
 				<div>
-					<div v-if="props.allEditState && !eduEditState && !eduAddNew && !eduDelete">
+					<div
+						v-if="
+							props.allEditState && !eduEditState && !eduAddNew && !eduDelete
+						"
+					>
 						<el-dropdown>
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addEduData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editEduData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
-									<el-dropdown-item @click="deleteEduData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+									<el-dropdown-item @click="addEduData"
+										><el-icon><Plus /></el-icon>新增</el-dropdown-item
+									>
+									<el-dropdown-item @click="editEduData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
+									<el-dropdown-item @click="deleteEduData"
+										><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -88,7 +98,12 @@
 					</div>
 				</div>
 
-				<div v-loading="loading" v-for="item in copyEducation" :key="item.id" class="timeline">
+				<div
+					v-loading="loading"
+					v-for="item in copyEducation"
+					:key="item.id"
+					class="timeline"
+				>
 					<div v-if="!eduEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">
@@ -159,9 +174,15 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addJobData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editJobData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
-									<el-dropdown-item @click="deleteJobData"><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item>
+									<el-dropdown-item @click="addJobData"
+										><el-icon><Plus /></el-icon>新增</el-dropdown-item
+									>
+									<el-dropdown-item @click="editJobData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
+									<el-dropdown-item @click="deleteJobData"
+										><el-icon><DeleteFilled /></el-icon>刪除</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -234,7 +255,12 @@
 					</div>
 				</div>
 
-				<div v-loading="loading" v-for="item in copyJob" :key="item.id" class="timeline">
+				<div
+					v-loading="loading"
+					v-for="item in copyJob"
+					:key="item.id"
+					class="timeline"
+				>
 					<div v-if="!jobEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">
@@ -318,8 +344,12 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="addSkillData"><el-icon><Plus /></el-icon>新增</el-dropdown-item>
-									<el-dropdown-item @click="editSkillData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="addSkillData"
+										><el-icon><Plus /></el-icon>新增</el-dropdown-item
+									>
+									<el-dropdown-item @click="editSkillData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -360,7 +390,12 @@
 							</el-icon>
 						</div>
 					</div>
-					<li v-loading="loading" v-for="item in copySkills" :key="item.skill" class="know_item">
+					<li
+						v-loading="loading"
+						v-for="item in copySkills"
+						:key="item.skill"
+						class="know_item"
+					>
 						<span v-if="!skillEditState">{{ item.skill }}</span>
 						<!-- 修改 -->
 						<div v-if="skillEditState">
@@ -387,7 +422,9 @@
 							<el-icon :size="20"><Edit /></el-icon>
 							<template #dropdown>
 								<el-dropdown-menu>
-									<el-dropdown-item @click="editContactData"><el-icon><EditPen /></el-icon>修改</el-dropdown-item>
+									<el-dropdown-item @click="editContactData"
+										><el-icon><EditPen /></el-icon>修改</el-dropdown-item
+									>
 								</el-dropdown-menu>
 							</template>
 						</el-dropdown>
@@ -398,7 +435,12 @@
 					</div>
 				</div>
 			</div>
-			<div v-loading="loading" class="know_text" v-for="item in copyContacts" :key="item.mail">
+			<div
+				v-loading="loading"
+				class="know_text"
+				v-for="item in copyContacts"
+				:key="item.mail"
+			>
 				<ul class="contact_items">
 					<li class="contact_item">
 						📧
