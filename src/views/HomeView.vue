@@ -4,7 +4,7 @@
 			<div class="pic">
 				<div class="bg"></div>
 				<div class="my_pic">
-					<img src="../assets/images/my_pic.png" alt="myslef" />
+					<img src="/images/my_pic.png" alt="myslef" />
 				</div>
 			</div>
 			<div class="introduce">
@@ -88,7 +88,7 @@
 					</div>
 				</div>
 
-				<div v-for="item in copyEducation" :key="item.id" class="timeline">
+				<div v-loading="loading" v-for="item in copyEducation" :key="item.id" class="timeline">
 					<div v-if="!eduEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">
@@ -234,7 +234,7 @@
 					</div>
 				</div>
 
-				<div v-for="item in copyJob" :key="item.id" class="timeline">
+				<div v-loading="loading" v-for="item in copyJob" :key="item.id" class="timeline">
 					<div v-if="!jobEditState">
 						<div class="timeline-info">
 							<div class="timeline-date">
@@ -360,7 +360,7 @@
 							</el-icon>
 						</div>
 					</div>
-					<li v-for="item in copySkills" :key="item.skill" class="know_item">
+					<li v-loading="loading" v-for="item in copySkills" :key="item.skill" class="know_item">
 						<span v-if="!skillEditState">{{ item.skill }}</span>
 						<!-- 修改 -->
 						<div v-if="skillEditState">
@@ -398,7 +398,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="know_text" v-for="item in copyContacts" :key="item.mail">
+			<div v-loading="loading" class="know_text" v-for="item in copyContacts" :key="item.mail">
 				<ul class="contact_items">
 					<li class="contact_item">
 						📧
@@ -491,6 +491,8 @@ const addJobDetailsInput = ref("");
 const addSkill = ref<string[]>([]);
 const addSkillInput = ref("");
 
+const loading = ref(true);
+
 const props = defineProps<{
 	allEditState: boolean;
 }>();
@@ -506,24 +508,28 @@ const getContacts = async () => {
 	const data = await homeStore.getContactsData();
 	contacts.value = data;
 	copyContacts.value = JSON.parse(JSON.stringify(data));
+	loading.value = false;
 };
 
 const getEducation = async () => {
 	const data = await homeStore.getEducationData();
 	education.value = data;
 	copyEducation.value = JSON.parse(JSON.stringify(data));
+	loading.value = false;
 };
 
 const getJob = async () => {
 	const data = await homeStore.getJobData();
 	job.value = data;
 	copyJob.value = JSON.parse(JSON.stringify(data));
+	loading.value = false;
 };
 
 const getSkills = async () => {
 	const data = await homeStore.getSkillsData();
 	skills.value = data;
 	copySkills.value = JSON.parse(JSON.stringify(data));
+	loading.value = false;
 };
 
 const addEduData = () => {

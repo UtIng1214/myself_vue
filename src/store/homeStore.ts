@@ -186,8 +186,6 @@ export const useHomeStore = defineStore("homeStore", {
     async getWorksData() {
       try {
         const { data } = await api.get("/api/works");
-        console.log(data);
-        
         return data;
       } catch (error) {
         console.log(error);

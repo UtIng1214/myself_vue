@@ -17,6 +17,7 @@
 
 				<ul class="know_items portfolio">
 					<li
+						v-loading="loading"
 						v-for="item in filterWords"
 						:key="item.id"
 						class="know_item portfolio"
@@ -51,17 +52,20 @@ interface WorkItem {
 const homeStore = useHomeStore();
 const works = ref<WorkItem[]>([]);
 const value = ref('0');
+const loading = ref(true);
 
 onMounted( async() => {
   const data = await homeStore.getWorksData();
   works.value = data;
+	loading.value = false;
 })
 
 const options = [
   { value: '0', label: "全部" },
   { value: '1', label: "立達" },
   { value: '2', label: "課程" },
-  { value: '3', label: "北祥" }
+  { value: '3', label: "北祥" },
+  { value: '4', label: "天茶" },
 ];
 
 const filterWords = computed(() => {
@@ -71,14 +75,20 @@ const filterWords = computed(() => {
 		result = result.filter(item => item.company === value.value)
 	} 
 
+	result = result.slice().sort((b, a) => Number(a.company) - Number(b.company));
+
 	// 2️⃣ 再做 imgSrc 轉換
 	return result.map(item => {
 		let img = item.imgSrc
 
-		if (img.startsWith("@/assets/")) {
-			img = new URL(img.replace("@", "/src"), import.meta.url).href
+		// if (img.startsWith("@/assets/")) {
+		// 	img = new URL(img.replace("@", "/src"), import.meta.url).href
+		// } else if (img.startsWith("/images/")) {
+		// 	img = `YuTing${img}`
+		// }
+		if (img.startsWith("/images/")) {
+			img = `YuTing${img}`
 		}
-
 		return {
 			...item,
 			imgSrc: img
