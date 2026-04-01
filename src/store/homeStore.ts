@@ -98,8 +98,6 @@ export const useHomeStore = defineStore("homeStore", {
 		async getJobData() {
 			try {
 				const { data } = await api.get("/api/job");
-				console.log(data);
-
 				return data;
 			} catch (error) {
 				console.log(error);
@@ -108,8 +106,6 @@ export const useHomeStore = defineStore("homeStore", {
 
 		async postJobData(payload: any) {
 			try {
-				console.log(payload);
-
 				await api.post("/api/job", payload);
 				return;
 			} catch (error) {
@@ -183,13 +179,13 @@ export const useHomeStore = defineStore("homeStore", {
 		},
 
 		//------------------------作品集------------------------
-    async getWorksData() {
-      try {
-        const { data } = await api.get("/api/works");
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+		async getWorksData() {
+			try {
+				const { data } = await api.get("/api/works");
+				return data;
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 });
